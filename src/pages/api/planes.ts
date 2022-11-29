@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Plane, QueryParams } from "../../interfaces";
+import { Plane, States, QueryParams } from "../../interfaces";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Plane[]>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
     const query: QueryParams = req.query
-    // const lat: number = Number(query.lat ?? Math.random().toString())
-    // const lon: number = Number(query.lat ?? Math.random().toString())
-    const lat: number = Number(query.lat ?? process.env.DEFAULT_LAT)
-    const lon: number = Number(query.lon ?? process.env.DEFAULT_LON)
+
+    const lat = Number(query.lat ?? process.env.DEFAULT_LAT)
+    const lon = Number(query.lon ?? process.env.DEFAULT_LON)
     const range = Number(query.range ?? process.env.DEFAULT_RANGE)
 
     const ymin = 'lamin=' + (lat - range).toString()
@@ -26,10 +26,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     )
     .then((response) => response.json())
     .then((data) => data.states)
-    .then((data: Plane[]) => {
-    data.sort((a: Plane, b: Plane) => b.geo_altitude - a.geo_altitude)
-    return data
+    .then((data: []) => {
+        data.sort((a, b) => (b[13] ?? 0) - (a[13] ?? 0))
+        return data
     })
-
+    console.log( resData )
     return res.status(200).json( resData );
   }
