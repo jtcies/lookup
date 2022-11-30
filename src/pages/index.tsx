@@ -53,7 +53,7 @@ const Home: NextPage = () => {
   if (error) return <div>Failed to load planes</div>
   if (!data) return <div>Loading...</div>
   if (geoError) return <div>Geolocation error</div>
-  
+
   return (
         <div className='grid place-items-center px-5'>
         <table className='table-fixed text-left border w-1/2 rounded-md border-spacing-2 border-separate'>
@@ -64,6 +64,7 @@ const Home: NextPage = () => {
               <th className='pr-3 text-right'>velocity</th>
               <th className='pr-3 text-right'>vertical rate</th>
               <th className='pl-3 text-right'>on ground?</th>
+              <th className='pl-3 text-right'>time position</th>
             </tr>
           </thead>
           <tbody>
@@ -77,6 +78,7 @@ const Home: NextPage = () => {
                 <td className='pr-3 text-right'>{ `${Math.round(plane[9])} m/s` } </td> 
                 <td className='pr-3 text-right'>{`${Math.round(plane[11])} m/s` }</td> 
                 <td className='pr-3 text-right'>{ '' + plane[8] } </td> 
+                <td className='pr-3 text-right'>{`${Math.round(Date.now() / 1000 - plane[3])} s` }</td> 
               </tr>
             ))}
         </tbody>
