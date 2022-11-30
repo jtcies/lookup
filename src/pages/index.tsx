@@ -37,15 +37,13 @@ const Home: NextPage = () => {
         setError('Something went wrong getting your position!')
       })
     }
-  })
-  console.log(lat, lon)
+  }, [])
 
   const { data, error } = useSwr(['/api/planes/?', lat, lon], getPlanes)
 
   if (!session) {
     return (
       <>
-        Not signed in <br />
         <button onClick={() => signIn()}>Sign in</button>
       </>
     )
@@ -56,7 +54,7 @@ const Home: NextPage = () => {
 
   return (
         <div className='grid place-items-center px-5'>
-        <table className='table-fixed text-left border w-1/2 rounded-md border-spacing-2 border-separate'>
+        <table className='table-auto text-left border w-1/2 rounded-md border-spacing-2 border-separate'>
           <thead>
             <tr className='border border-separate text-xl'>
               <th className='pl-3'>callsign</th>
@@ -83,6 +81,9 @@ const Home: NextPage = () => {
             ))}
         </tbody>
         </table>
+        <br/>
+        <div>{`Lat: ${lat.toPrecision(5)}, Lon: ${lon.toPrecision(5)}`}</div> 
+        <br/>
         <button onClick={() => signOut()}>Sign out</button>
         </div>
       )

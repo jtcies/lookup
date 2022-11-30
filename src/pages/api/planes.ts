@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Plane, States, QueryParams } from "../../interfaces";
+import { type QueryParams } from "../../interfaces";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
