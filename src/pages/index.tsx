@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         <div className='grid place-items-center px-5'>
         <table className='table-fixed text-left border w-1/2 rounded-md border-spacing-2 border-separate'>
           <thead>
-            <tr className='border border-2 border-separate text-xl'>
+            <tr className='border border-separate text-xl'>
               <th className='pl-3'>callsign</th>
               <th className='pr-3 text-right'>altitude</th>
               <th className='pr-3 text-right'>velocity</th>
