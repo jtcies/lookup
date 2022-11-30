@@ -1,13 +1,15 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
-import { Plane } from "../interfaces";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSwr from 'swr'
 
-export const getPlanes = async (url: string): Promise<[]> => {
+export const getPlanes = async (url: string, lat: string, lon: string): Promise<[]> => {
 
-  const data  = await fetch(url)
+  const Params = new URLSearchParams({
+    lat: lat.toString(),
+    lon: lon.toString()
+  })
+
+  const data  = await fetch(url + Params)
       .then((res) => res.json())
   return data
 
@@ -15,13 +17,33 @@ export const getPlanes = async (url: string): Promise<[]> => {
 
 const Home: NextPage = () => {
 
-  const { data, error } = useSwr('/api/planes', getPlanes)
+  const [geoError, setError] = useState('');
+  const [lat, setLat] = useState<number | any>();
+  const [lon, setLong] = useState<number | any>();
+  
+  useEffect(() => {
+    const geolocationAPI = navigator.geolocation;
+    if (!geolocationAPI) {
+      setError('Geolocation API is not available in your browser!')
+    } else {
+      geolocationAPI.getCurrentPosition((position) => {
+        const { coords } = position;
+        setLat(coords.latitude);
+        setLong(coords.longitude);
+      }, (error) => {
+        console.log(error)
+        setError('Something went wrong getting your position!')
+      })
+    }
+  })
+  console.log(lat, lon)
 
-  if (error) return <div>Failed to load users</div>
+
+  const { data, error } = useSwr(['/api/planes/?', lat, lon], getPlanes)
+
+  if (error) return <div>Failed to load planes</div>
   if (!data) return <div>Loading...</div>
-
-  // const [lat, setLat] = useState<number | any>();
-  // const [lon, setLong] = useState<number | any>();
+  if (geoError) return <div>Geolocation error</div>
   
   return (
         <div className='grid place-items-center px-5'>
