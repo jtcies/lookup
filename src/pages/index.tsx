@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import React, { useState, useEffect } from 'react';
 import useSwr from 'swr'
+import { useSession, signIn, signOut } from "next-auth/react"
 
 export const getPlanes = async (url: string, lat: string, lon: string): Promise<[]> => {
 
@@ -17,6 +18,7 @@ export const getPlanes = async (url: string, lat: string, lon: string): Promise<
 
 const Home: NextPage = () => {
 
+  const { data: session } = useSession()
   const [geoError, setError] = useState('');
   const [lat, setLat] = useState<number | any>();
   const [lon, setLong] = useState<number | any>();
@@ -38,9 +40,16 @@ const Home: NextPage = () => {
   })
   console.log(lat, lon)
 
-
   const { data, error } = useSwr(['/api/planes/?', lat, lon], getPlanes)
 
+  if (!session) {
+    return (
+      <>
+        Not signed in <br />
+        <button onClick={() => signIn()}>Sign in</button>
+      </>
+    )
+  }
   if (error) return <div>Failed to load planes</div>
   if (!data) return <div>Loading...</div>
   if (geoError) return <div>Geolocation error</div>
@@ -72,6 +81,7 @@ const Home: NextPage = () => {
             ))}
         </tbody>
         </table>
+        <button onClick={() => signOut()}>Sign out</button>
         </div>
       )
 }
