@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { type QueryParams } from "../../interfaces";
+import geoDistance from "../../utils/calcGeoDistance"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -27,9 +28,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .then((response) => response.json())
     .then((data) => data.states)
     .then((data: []) => {
-        data.sort((a, b) => (b[13] ?? 0) - (a[13] ?? 0))
+        const ret = data.map(x => Object.assign({}, x, {'dist': geoDistance(lat, x[6], lon, x[5])}))
+        return ret
+    })
+    .then((data) => {
+        data.sort((a, b) => (a['dist'] ?? 0) - (b['dist'] ?? 0))
         return data
     })
+
     console.log( resData )
     return res.status(200).json( resData );
   }

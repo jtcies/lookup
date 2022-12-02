@@ -58,6 +58,7 @@ const Home: NextPage = () => {
           <thead>
             <tr className='border border-separate text-xl'>
               <th className='pl-3'>callsign</th>
+              <th className='pr-3 text-right'>distance</th>
               <th className='pr-3 text-right'>altitude</th>
               <th className='pr-3 text-right'>velocity</th>
               <th className='pr-3 text-right'>vertical rate</th>
@@ -72,6 +73,7 @@ const Home: NextPage = () => {
                   <a href={'https://flightaware.com/live/flight/' + plane[1]} target="_blank" rel="noopener noreferrer">{ plane[1] }
                   </a>
                 </td>
+                <td className='pr-3 text-right'>{ `${Math.round(plane['dist'])} m` } </td>
                 <td className='pr-3 text-right'>{ `${Math.round(plane[13])} m` } </td>
                 <td className='pr-3 text-right'>{ `${Math.round(plane[9])} m/s` } </td> 
                 <td className='pr-3 text-right'>{`${Math.round(plane[11])} m/s` }</td> 
