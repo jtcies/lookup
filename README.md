@@ -2,6 +2,8 @@
 
 Get list of airplanes in your area.
 
+Use browser to get your location, ping [Opensky Network](https://opensky-network.org/) to get list of planes in your area, sort by distance to you. 
+
 ### Stack
 
 created using [Create T3 App](https://create.t3.gg/)
@@ -19,7 +21,7 @@ created using [Create T3 App](https://create.t3.gg/)
 - [ ] better handle when geolocation is loading
     [ ] show a loading image instead of 'failed'
     [ ] cache location
-    [ ] show current location on results page
+    [x] show current location on results page
 - [ ] about page
 - [x] sort data
 - [ ] better handling error pages
