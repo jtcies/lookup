@@ -55,9 +55,9 @@ const Home: NextPage = () => {
 
   return (
         <div className='grid place-items-center px-5'>
-        <table className='table-fixed text-right border rounded-md border-spacing-5'>
+        <table className='table-fixed text-right border border-slate-500 border-spacing-5'> 
           <thead>
-            <tr className='border border-separate text-xl h-12'>
+            <tr className='text-xl h-12 border border-slate-500'>
               <th className='pl-3 w-32 text-left'>callsign</th>
               <th className='pr-3 w-32'>distance</th>
               <th className='pr-3 w-32'>altitude</th>
