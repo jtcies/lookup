@@ -1,6 +1,6 @@
 ## Overhead
 
-Get list of airplanes in your area
+Get list of airplanes in your area.
 
 ### Stack
 
@@ -28,4 +28,4 @@ created using [Create T3 App](https://create.t3.gg/)
 - [ ] allow user to save data (flights viewed, etc.)
     - [ ] setup PG database
     - [ ] allow interaction with results
-- [ ] distance to aircraft (based on lat/lon/alt)?
+- [x] distance to aircraft (based on lat/lon/alt)?
