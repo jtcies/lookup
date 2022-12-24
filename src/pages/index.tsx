@@ -48,37 +48,38 @@ const Home: NextPage = () => {
       </>
     )
   }
-  if (error) return <div>Failed to load planes</div>
+
   if (!data) return <div>Loading...</div>
+  if (error) return <div>Failed to load planes</div>
   if (geoError) return <div>Geolocation error</div>
 
   return (
         <div className='grid place-items-center px-5'>
-        <table className='table-auto text-left border rounded-md border-spacing-2 border-separate'>
+        <table className='table-fixed text-right border rounded-md border-spacing-5'>
           <thead>
-            <tr className='border border-separate text-xl'>
-              <th className='pl-3'>callsign</th>
-              <th className='pr-3 text-right'>distance</th>
-              <th className='pr-3 text-right'>altitude</th>
-              <th className='pr-3 text-right'>velocity</th>
-              <th className='pr-3 text-right'>vertical rate</th>
-              <th className='pl-3 text-right'>on ground?</th>
-              <th className='pl-3 text-right'>time position</th>
+            <tr className='border border-separate text-xl h-12'>
+              <th className='pl-3 w-32 text-left'>callsign</th>
+              <th className='pr-3 w-32'>distance</th>
+              <th className='pr-3 w-32'>altitude</th>
+              <th className='pr-3 w-32'>velocity</th>
+              <th className='pr-3 w-32'>vertical rate</th>
+              <th className='pr-3 w-32'>ground?</th>
+              <th className='pr-3 w-32'>time position</th>
             </tr>
           </thead>
           <tbody>
             {data.map((plane) => (
-              <tr key = { plane[0] } className='text-lg'> 
-                <td className='pl-3 underline'>
+              <tr key = { plane[0] } className='text-lg odd:bg-slate-700 h-10'> 
+                <td className='pl-3 underline text-left'>
                   <a href={'https://flightaware.com/live/flight/' + plane[1]} target="_blank" rel="noopener noreferrer">{ plane[1] }
                   </a>
                 </td>
-                <td className='pr-3 text-right'>{ `${Math.round(plane['dist'])} m` } </td>
-                <td className='pr-3 text-right'>{ `${Math.round(plane[13])} m` } </td>
-                <td className='pr-3 text-right'>{ `${Math.round(plane[9])} m/s` } </td> 
-                <td className='pr-3 text-right'>{`${Math.round(plane[11])} m/s` }</td> 
-                <td className='pr-3 text-right'>{ '' + plane[8] } </td> 
-                <td className='pr-3 text-right'>{`${Math.round(Date.now() / 1000 - plane[3])} s` }</td> 
+                <td className='pr-3'>{ `${Math.round(plane['dist'])} m` } </td>
+                <td className='pr-3'>{ `${Math.round(plane[13])} m` } </td>
+                <td className='pr-3'>{ `${Math.round(plane[9])} m/s` } </td> 
+                <td className='pr-3'>{`${Math.round(plane[11])} m/s` }</td> 
+                <td className='pr-3'>{ '' + plane[8] } </td> 
+                <td className='pr-3'>{`${Math.round(Date.now() / 1000 - plane[3])} s` }</td> 
               </tr>
             ))}
         </tbody>
